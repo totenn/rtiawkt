@@ -4,11 +4,11 @@ import kotlin.math.sqrt
 
 fun hitSphere(center: Vec3, radius: Double, r: Ray): Double {
     val oc = r.origin - center
-    val a = dot(r.direction, r.direction)
-    val b = 2.0 * dot(oc, r.direction)
-    val c = dot(oc, oc) - radius * radius
-    val discriminant = b * b - 4 * a * c
-    return if (discriminant < 0) -1.0 else (-b - sqrt(discriminant)) / (2.0 * a)
+    val a = r.direction.lengthSquared()
+    val halfB = dot(oc, r.direction)
+    val c = oc.lengthSquared() - radius * radius
+    val discriminant = halfB * halfB - a * c
+    return if (discriminant < 0) -1.0 else (-halfB - sqrt(discriminant)) / a
 }
 
 fun rayColor(r: Ray): Vec3 {
