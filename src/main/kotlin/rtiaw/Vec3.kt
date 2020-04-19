@@ -7,10 +7,8 @@ class Vec3(var x: Double, var y: Double, var z: Double) {
     constructor() : this(0.0, 0.0, 0.0)
     constructor(e: Array<Double>) : this(e[0], e[1], e[2])
 
-    operator fun unaryMinus() {
-        this.x = -x
-        this.y = -y
-        this.z = -z
+    operator fun unaryMinus(): Vec3 {
+        return Vec3(-x, -y, -z)
     }
 
     operator fun get(i: Int): Double {
