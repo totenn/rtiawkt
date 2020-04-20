@@ -44,8 +44,18 @@ class Vec3(var x: Double, var y: Double, var z: Double) {
         return x * x + y * y + z * z
     }
 
-    fun writeColor(out: OutputStream) {
-        out.write("${(255.999 * x).toInt()} ${(255.999 * y).toInt()} ${(255.999 * z).toInt()}\n".toByteArray())
+    fun writeColor(out: OutputStream, samplesPerPixel: Int) {
+        val scale = 1.0 / samplesPerPixel
+        val r = scale * x
+        val g = scale * y
+        val b = scale * z
+
+        out.write(
+            "${(256 * r.coerceIn(0.0, 0.999)).toInt()} ${(256 * g.coerceIn(
+                0.0,
+                0.999
+            )).toInt()} ${(256 * b.coerceIn(0.0, 0.999)).toInt()}\n".toByteArray()
+        )
     }
 
     override fun toString(): String {
